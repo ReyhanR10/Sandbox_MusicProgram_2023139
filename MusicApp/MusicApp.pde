@@ -9,12 +9,13 @@ import ddf.minim.ugens.*;
 
 //
 //Global Variables
-
+File musicFolder, soundFolder ;
 Minim minim ; //creates object to acces all functions
 int numberOfSong = 3 ; //Number of FILES in folder, OS to count
-int numberOfSongEffect = ;
+int currentSong = 0 ;
+int numberOfSoundEffects ;
 AudioPlayer [ ] song = new AudioPlayer [ numberOfSong ]  ; //creates "Play Lists" variable holding extensions ; WAV, AIFF, AU, MP3
-AudioPlayer [ ]  soundEffect = new audioPlayer [ numberOfSoundEffect ] ; //PLAYLIST FOR SOUND EFFECT
+AudioPlayer [ ]  soundEffects = new AudioPlayer [ numberOfSoundEffects ] ; //PLAYLIST FOR SOUND EFFECT
 AudioMetaData [ ] songMetaData = new AudioMetaData [ numberOfSong ] ; //STORE EVERYTHING FROM PROPERTIES (.MP3 ) TAB
 PFont generalFont ; 
 color blue = #379BDB ;
@@ -47,34 +48,17 @@ void setup() {
  // println ( path ) ;
   song[0] = minim.loadFile( pathway + Yoasobi );
   
-  songMetaData[0] = song1.getMetaData ( ) ;
+  songMetaData[0] = song[0].getMetaData ( ) ;
   generalFont = createFont( "Agbalumo Regular", 55 ) ; 
   //
   //song1.loop(0) ;
   //Meta Data Println Testing <
   //FOR Prototyping, Println all information to the console FIRST!!!
   //Verifying Meta Data, 18 Println's
+ 
+ 
+
   
-  println( "File Name: ", songMetaData1.fileName() );
-  println( "Song Length (in milliseconds): ", songMetaData[0].length() );
-  println( "Song Length (in seconds): ", songMetaData[0].length()/1000 );
-  println( "Song Length (in minutes & seconds): ", (songMetaData1.length()/1000)/60, " minute", (songMetaData1.length()/1000)- (  ( (songMetaData1.length()/1000)/60) * 60), " seconds" );
-  println( "Song Title: ", songMetaData[0].title() );
-  println( "Author: ", songMetaData[0].author() ); //Song Writer or Performer
-  println( "Composer: ", songMetaData[0].composer() ); //Song Writer
-  println( "Orchestra: ", songMetaData[0].orchestra() );
-  println( "Album: ", songMetaData[0].album() );
-  println( "Disk: ", songMetaData[0].disc() );
-  println( "Publisher: ", songMetaData[0].publisher() );
-  println( "Date Released: ", songMetaData[0].date() );
-  println( "Copyright: ", songMetaData[0].copyright() );
-  println( "Comment: ", songMetaData[0].comment () );
-  println( "Lyrics: ", songMetaData[0].lyrics() );
-  println( "Track: ", songMetaData[0].track() );
-  println( "Genre: ", songMetaData[0].genre() );
-  println( "Encoded: ", songMetaData[0].encoded() ); //how a computer reads the file
-  
-  //
   //Population
   backgroundImage1 = appWidth*0 ;
   backgroundImage2 = appHeight*0 ;
@@ -135,7 +119,7 @@ void draw() {
   textAlign ( CENTER, CENTER ) ;
   int size = 60 ;
   textFont ( generalFont, size) ;
-  text (  songMetaData1.title(), width*1/4, height*0, width*1/2, height*1/10 ) ;
+  text (  songMetaData[0].title(), width*1/4, height*0, width*1/2, height*1/10 ) ;
   fill ( 255 ) ;
   
   //BUTTON SETUP DRAW
@@ -146,7 +130,7 @@ void draw() {
   if ( song[0].isLooping () && song[0].loopCount () !=-1 ) println ("there are", song[0].loopCount (), "loops left." ) ; 
   if ( song[0].isLooping () && song[0].loopCount () ==-1 ) println ("Looping infinitely" ) ; 
   if ( song[0].isPlaying () && song[0].isLooping ()      ) println ("Play Once") ;
-  println ( "Song Position", song[0].position(), "Song Lenght", song1.length () );
+  println ( "Song Position", song[0].position(), "Song Lenght", song[0].length () );
   
   //
   //Debugging Fast forward
@@ -193,7 +177,7 @@ void keyPressed() {
     if (song[0].isPlaying () ) {
     song[0].pause () ; //AUTO, REWINDED ().
   } else {
-    song1.rewind () ; //Not Playing means song is paused or song position
+    song[0].rewind () ; //Not Playing means song is paused or song position
     }
   } //End Stop BUTTON
   
