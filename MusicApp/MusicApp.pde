@@ -9,21 +9,22 @@ import ddf.minim.ugens.*;
 
 //
 //Global Variables
-File musicFolder, soundFolder ;
+File musicFolder, soundEffectFolder ;
 Minim minim ; //creates object to acces all functions
-int numberOfSong = 3 ; //Number of FILES in folder, OS to count
+int numberOfSong = 3, numberOfSoundEffects  ; //Number of FILES in folder, OS to count
 int currentSong = 0 ;
-int numberOfSoundEffects ;
-AudioPlayer [ ] song = new AudioPlayer [ numberOfSong ]  ; //creates "Play Lists" variable holding extensions ; WAV, AIFF, AU, MP3
-AudioPlayer [ ]  soundEffects = new AudioPlayer [ numberOfSoundEffects ] ; //PLAYLIST FOR SOUND EFFECT
-AudioMetaData [ ] songMetaData = new AudioMetaData [ numberOfSong ] ; //STORE EVERYTHING FROM PROPERTIES (.MP3 ) TAB
+AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
+AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
+AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
 PFont generalFont ; 
 color blue = #379BDB ;
-
+PFont buttonFont ;
 //
 
 int appWidth, appHeight ;
 float backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ;
+float button1X, button1Y, buttonSide ;
+float smallerDimension ;
 PImage pictureImage ;
 String title = "World Tour", footer = "Encore" ;
 
@@ -35,6 +36,9 @@ void setup() {
   fullScreen () ;
   appWidth = width ;
   appHeight = height ;
+  //Ternary Operator
+  smallerDimension = (appWidth >= appHeight) ? appHeight : appWidth;
+  println( "Smaller Dimension is", smallerDimension);
   minim = new Minim(this) ; //load from data directory, loadFile should also load from
   
   //BUTTON SETUP
@@ -57,8 +61,6 @@ void setup() {
   //Verifying Meta Data, 18 Println's
  
  
-
-  
   //Population
   backgroundImage1 = appWidth*0 ;
   backgroundImage2 = appHeight*0 ;
@@ -67,6 +69,8 @@ void setup() {
   String imagesPath = "../Images/ImagesUsed/" ;
   String YoasobiImage = "Yoasobi3.jpg" ;
   pictureImage = loadImage ( imagesPath + YoasobiImage ) ;
+  
+  
   //
   /*
   xTitle = appWidth*1/4 ;
@@ -78,6 +82,7 @@ void setup() {
   widthFooter = widthTitle ;
   heightFooter = heightTitle ;
   */
+  buttonFont = createFont ( "Cambria", 70 ) ;
   //
   //DIVs
   /*rect ( backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ) ;
@@ -86,7 +91,11 @@ void setup() {
   String [] fontList = PFont.list () ;
   printArray ( fontList ) ;
   */
-
+buttonSide = smallerDimension/2-sqrt ( sq ( smallerDimension/2 ) /2 ) ;
+button1X = backgroundImage1 ;
+button1Y = backgroundImage2 ;
+rect( button1X, button1Y, buttonSide, buttonSide );
+println ( backgroundImage1, smallerDimension, smallerDimension/2, sq( smallerDimension/2 ), sq( smallerDimension/2 ) /2, sqrt( sq( smallerDimension/2 ) /2 ), smallerDimension/2-sqrt(sq(smallerDimension/2)/2) );
 } //End setup
 
 
@@ -127,9 +136,9 @@ void draw() {
   
   //NOTE : logical operators could be nested IFs
   //NOTE : Looping Function
-  if ( song[0].isLooping () && song[0].loopCount () !=-1 ) println ("there are", song[0].loopCount (), "loops left." ) ; 
-  if ( song[0].isLooping () && song[0].loopCount () ==-1 ) println ("Looping infinitely" ) ; 
-  if ( song[0].isPlaying () && song[0].isLooping ()      ) println ("Play Once") ;
+  if ( playList[currentSong]() && song[0].loopCount () !=-1 ) println ("there are", song[0].loopCount (), "loops left." ) ; 
+  if ( playList[currentSong] () && song[0].loopCount () ==-1 ) println ("Looping infinitely" ) ; 
+  if ( playList[currentSong] () && song[0].isLooping ()      ) println ("Play Once") ;
   println ( "Song Position", song[0].position(), "Song Lenght", song[0].length () );
   
   //
@@ -195,6 +204,7 @@ void keyPressed() {
 //
 void mousePressed() {
   //BUTTON MOUSEPRESSED
+   if (mouseX>button1X && mouseX<button1X+buttonSide && mouseY>button1Y && mouseY<button1Y+buttonSide) Playlist=true; 
   
 
 
