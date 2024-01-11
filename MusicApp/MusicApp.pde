@@ -11,21 +11,21 @@ import ddf.minim.ugens.*;
 //Global Variables
 File musicFolder, soundEffectFolder ;
 Minim minim ; //creates object to acces all functions
-int numberOfSongs = 3, numberOfSoundEffects = 0, currentSong = 0 ;  ; //Number of FILES in folder, OS to count
+int numberOfSongs = 3, numberOfSoundEffects = 0, currentSong = 0 ; //Number of FILES in folder, OS to count
 AudioPlayer[] playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
 AudioMetaData[] playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
 AudioPlayer[] soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1PFont generalFont;
 color blue = #379BDB ;
 PFont generalFont ; 
 PFont buttonFont ;
+//Color hoverOverColour=resetColour ;
 Boolean stopBoolean=false, pauseBoolean=false, changeState=false ;
 
 //
 
 int appWidth, appHeight ;
 float backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ;
-float button1X, button1Y, buttonSide ;
-float smallerDimension ;
+float button1X, button1Y, buttonSide, smallerDimension ;
 PImage pictureImage ;
 String title = "World Tour", footer = "Encore" ;
 
@@ -49,7 +49,7 @@ void setup() {
   //END  BUTTON
   
   //Music File Load
-  String relativeMusicPathway = "../FreeWare/MusicDownload/" ;
+  String relativeMusicPathway = "FreeWare/MusicDownload/" ;
   String absoluteMusicPath = sketchPath( relativeMusicPathway ); //Absolute Path
   musicFolder = new File(absoluteMusicPath);
   int musicFileCount = musicFolder.list().length;
@@ -59,41 +59,50 @@ void setup() {
   songFilePathway[i] = ( musicFiles[i].toString() );
   
   }
+  //RE-EXECUTE PLAYLIST POPULATION
   
   numberOfSongs = musicFileCount; //Placeholder Only, reexecute lines after fileCount Known
   playList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
   printArray(playList);
   playListMetaData = new AudioMetaData[numberOfSongs]; //same as above
   for ( int i=0; i<musicFileCount; i++ ) {
-    printArray(playList);
-    playList[i]= minim.loadFile( songFilePathway[i] );
-    playListMetaData[i] = playList[i].getMetaData();
+    printArray(playList) ;
+    playList[i]= minim.loadFile( songFilePathway[i] ) ;
+    playListMetaData[i] = playList[i].getMetaData( ) ;
+    
   } //End Music Load
+  //
   
-  String relativeSoundPathway = "FreeWare Music/SoundEffect/"; //Relative Path
-  String absoluteSoundPath = sketchPath( relativeSoundPathway ); //Absolute Path
-  soundEffectFolder = new File(absoluteSoundPath);
+  //MUSIC LOADS
+  String relativeSoundPathway = "FreeWare Music/SoundEffect/" ; //Relative Path
+  String absoluteSoundPath = sketchPath( relativeSoundPathway ) ; //Absolute Path
+  soundEffectFolder = new File(absoluteSoundPath) ;
   int soundEffectFileCount = soundEffectFolder.list().length;
-  File[] soundEffectFiles = soundEffectFolder.listFiles(); //String of Full Directies
-  String[] soundEffectFilePathway = new String[soundEffectFileCount];
+  File [ ] soundEffectFiles = soundEffectFolder.listFiles() ; //String of Full Directies
+  String [ ] soundEffectFilePathway = new String[soundEffectFileCount] ;
   for ( int i = 0; i < soundEffectFiles.length; i++ ) {
-    soundEffectFilePathway[i] = ( soundEffectFiles[i].toString() );
-  }
+  soundEffectFilePathway[i] = ( soundEffectFiles[i].toString( ) ) ;
+    
+  } 
   
-   //Re-execute Playlist Population, similar to DIV Population
-  numberOfSoundEffects = soundEffectFileCount; //Placeholder Only, reexecute lines after fileCount Known
-  soundEffects = new AudioPlayer[numberOfSoundEffects]; //song is now similar to song1
+  //Re-execute Playlist Population, similar to DIV Population
+  numberOfSoundEffects = soundEffectFileCount ; //Placeholder Only, reexecute lines after fileCount Known
+  soundEffects = new AudioPlayer[ numberOfSoundEffects ] ; //song is now similar to song1
   for ( int i=0; i<soundEffectFileCount; i++ ) {
-    soundEffects[i]= minim.loadFile( soundEffectFilePathway[i] );
+  soundEffects[i]= minim.loadFile( soundEffectFilePathway [ i ] ) ;
+    
   } //End Music Load
-  generalFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
+  
+  generalFont = createFont ("Agbalumo Regular", 60) ; //Must also Tools / Create Font / Find Font / Do Not Press "OK"
   //
   //Random Start with any song in playList
   //Example of Population, random style
-  currentSong = int ( random(0, numberOfSongs-1) ); //casting truncates the decimal
+  currentSong = int ( random(0, numberOfSongs-1) ) ; //casting truncates the decimal
   //println("Random Start", currentSong);
   //
-  playList[currentSong].play();
+  playList[currentSong].play ( ) ;
+  
+
   
   // println ( path ) ;
   //
@@ -102,9 +111,22 @@ void setup() {
   //FOR Prototyping, Println all information to the console FIRST!!!
   //Verifying Meta Data, 18 Println's
  
- 
   //Population
-  backgroundImage1 = appWidth*0 ;
+
+  
+  //Divs
+  
+  rect( backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ) ;
+  buttonSide = smallerDimension/2-sqrt ( sq ( smallerDimension/2 ) /2 ) ;
+  button1X = backgroundImage1 ;
+  button1Y = backgroundImage2 ;
+  rect( button1X, button1Y, buttonSide, buttonSide );
+  println ( backgroundImage1, smallerDimension, smallerDimension/2, sq( smallerDimension/2 ), sq( smallerDimension/2 ) /2, sqrt( sq( smallerDimension/2 ) /2 ), smallerDimension/2-sqrt(sq(smallerDimension/2)/2) );
+  buttonFont = createFont ( "Cambria", 70 ) ;
+  
+  // This is Images DUDE
+  
+  backgroundImage1 = appWidth*0;
   backgroundImage2 = appHeight*0 ;
   backgroundImageWidth = appWidth-1 ;
   backgroundImageHeight = appHeight-1;
@@ -124,7 +146,6 @@ void setup() {
   widthFooter = widthTitle ;
   heightFooter = heightTitle ;
   */
-  buttonFont = createFont ( "Cambria", 70 ) ;
   //
   //DIVs
   /*rect ( backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ) ;
@@ -133,46 +154,28 @@ void setup() {
   String [] fontList = PFont.list () ;
   printArray ( fontList ) ;
   */
-buttonSide = smallerDimension/2-sqrt ( sq ( smallerDimension/2 ) /2 ) ;
-button1X = backgroundImage1 ;
-button1Y = backgroundImage2 ;
-rect( button1X, button1Y, buttonSide, buttonSide );
-println ( backgroundImage1, smallerDimension, smallerDimension/2, sq( smallerDimension/2 ), sq( smallerDimension/2 ) /2, sqrt( sq( smallerDimension/2 ) /2 ), smallerDimension/2-sqrt(sq(smallerDimension/2)/2) );
-  }
+
+ 
 } //End setup
 
 
 //
 void draw() {
   //IMAGES
+  
   background (255) ;
   image ( pictureImage, backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ) ;
   //
   //TEXT
-  /*fill ( white ) ; //INKK
-  textAlign ( CENTER, TOP ) ; 
-  size = 60 ;
-  textFont (titleFont, size ) ;
-  text (  title, xTitle, yTitle, widthTitle, heightTitle ) ;
-  fill ( purple ) ; //INKK
-  textAlign ( CENTER, BOTTOM ) ;
-  size = 120 ;
-  textFont ( footerFont, size ) ;
-  text ( footer, xFooter, yFooter, widthFooter, heightFooter ) ;
-  fill ( resetDefaultInk ) ;
-  //END TEXT
-  //
-  */
-  
-  
-  //  songMetaData1.title() 
-  rect (  width*1/4, height*0, width*1/2, height*1/10 ) ;
+   rect (  width*1/4, height*0, width*1/2, height*1/10 ) ;
   fill( blue ) ; //INK
   textAlign ( CENTER, CENTER ) ;
   int size = 60 ;
   textFont ( generalFont, size) ;
   text ( width*1/4, height*0, width*1/2, height*1/10 ) ; //Mistake 
   fill ( 255 ) ;
+  //END TEXT
+  //
   
   //BUTTON SETUP DRAW
   
@@ -184,6 +187,9 @@ void draw() {
   println ( "Song Position", song[0].position(), "Song Lenght", song[0].length () );
   */
   //
+  
+  //AutoPlay, next songs
+  
    if ( playList[currentSong].isPlaying() ) {
     //println("hereD1", playList[currentSong].isPlaying(), stopBoolean, pauseBoolean, changeState);
     if ( stopBoolean==true || pauseBoolean==true ) {
@@ -236,7 +242,7 @@ void keyPressed() {
     if (  stopBoolean==true ) {
       stopBoolean=false;
     }
-    println ( "herek4", playList[currentSong].isPlaying(), pauseBoolean, stopBoolean, changeState );
+    println ( "JKT48NewEra", playList[currentSong].isPlaying(), pauseBoolean, stopBoolean, changeState );
   }
   //
   //Simple STOP Behaviour: ask if .playing() & .pause() & .rewind(), or .rewind()
@@ -265,7 +271,10 @@ void keyPressed() {
     playList[currentSong].play();
   } //End Previous
   if ( key==CODED && keyCode==RIGHT ) { //NEXT
+ 
   } //End NEXT
+  
+  //Ignore LOL its Broken just Act Is not there
   //
   /* Broken KeyBinds for sure
    //
