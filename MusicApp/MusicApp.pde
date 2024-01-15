@@ -25,7 +25,7 @@ Boolean stopBoolean=false, pauseBoolean=false, changeState=false ;
 
 int appWidth, appHeight ;
 float backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ;
-float button1X, button1Y, buttonSide, smallerDimension ;
+float button1X, button1Y, buttonSide ;
 PImage pictureImage ;
 String title = "World Tour", footer = "Encore" ;
 
@@ -36,9 +36,6 @@ void setup() {
   fullScreen () ;
   appWidth = width ;
   appHeight = height ;
-  //Ternary Operator
-  smallerDimension = (appWidth >= appHeight) ? appHeight : appWidth;
-  println( "Smaller Dimension is", smallerDimension);
   
   //Display Algorithm
   
@@ -117,11 +114,9 @@ void setup() {
   //Divs
   
   rect( backgroundImage1, backgroundImage2, backgroundImageWidth, backgroundImageHeight ) ;
-  buttonSide = smallerDimension/2-sqrt ( sq ( smallerDimension/2 ) /2 ) ;
-  button1X = backgroundImage1 ;
-  button1Y = backgroundImage2 ;
+  button1X = backgroundImage1*1/4;
+  button1Y = backgroundImage2*1/4 ;
   rect( button1X, button1Y, buttonSide, buttonSide );
-  println ( backgroundImage1, smallerDimension, smallerDimension/2, sq( smallerDimension/2 ), sq( smallerDimension/2 ) /2, sqrt( sq( smallerDimension/2 ) /2 ), smallerDimension/2-sqrt(sq(smallerDimension/2)/2) );
   buttonFont = createFont ( "Cambria", 70 ) ;
   
   // This is Images DUDE
@@ -227,7 +222,7 @@ void keyPressed() {
   
   if ( soundEffects[2].position()!=0 ) soundEffects[2].rewind();
   soundEffects[2].play();
-  println ( "herek1", playList[currentSong].isPlaying(), pauseBoolean );
+  println ( "JKT48", playList[currentSong].isPlaying(), pauseBoolean );
   //
   if ( key=='P' || key=='p' ) {
     changeState=true;
