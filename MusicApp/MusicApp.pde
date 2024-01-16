@@ -178,7 +178,7 @@ void draw () {
   int size = 60 ;
   fill(OceanBlue);
   textFont (generalFont, size);
-  text(songListMetaData[currentSong].title(), , ); //ERROR FIx later
+  text(songListMetaData[currentSong].title(), BackgroundWidthXT, BackgroundHeightXT); //ERROR FIx later
   //autoplay for ur MUSIC PLAYER
   if ( songList[currentSong].isPlaying()==true ) {
     if ( stopBoolean==true || pauseBoolean==true ) {
