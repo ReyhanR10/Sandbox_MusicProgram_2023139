@@ -7,8 +7,7 @@ import ddf.minim.ugens.*;
 //
 //Global Variables
 //
-File musicFolder ;
-File SoundEffectFolder ; //Class forc java.io.* Library
+File musicFolder, SoundEffectFolder ; //Class forc java.io.* Library
 Minim minim ; //creates object to access all function that available
 int numberOfSongs = 3, numberOfSoundEffects = 0, currentSong = 0, currentEffect = 0 ;
 AudioPlayer[] songList = new AudioPlayer[numberOfSongs] ; //song is now similar to song1
@@ -21,8 +20,8 @@ float BackgroundX1, BackgroundY1, BackgroundWidthXT, BackgroundHeightXT ;
 float BackgroundX2, BackgroundY2, BackgroundWidth, BackgroundHeight ;
 float BackgroundX3, BackgroundY3, BackgroundWidthXW, BackgroundHeightXW ;
 PFont generalFont ;
-color OceanBlue=#3026D1 ;
-Boolean AnimationB = false ;
+color OceanBlue=#3026D1, White=#FFFFFF ;
+Boolean bruh = false ;
 PImage Image, JKT48Img, YoasobiImg, YSBTrialImg ;
 //String tittle for songListMetaData[currenrSong].title () ; = Basically Title
 String Imageing ;
@@ -49,23 +48,24 @@ void setup () {
   X1Height = displayHeight ;
   // Background Image Codes >>
   //
-  minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
+  minim = new Minim(this) ; //load from data directory, loadFile should also load from project folder, like loadImage
   //Music File To Load
 
-  String SoundEffect = "FreeWare/SoundEffect/" ;
-  String Pathway = "FreeWare/MusicDownload/" ;
+  String SoundEffect = "../FreeWare/SoundEffect/" ;
+  String Pathway = "../FreeWare/MusicDownload/" ;
   String extension = ".mp3"; //Type of the Music
-  String pathsong = sketchPath (Pathway);
-  String pathEffect = sketchPath (SoundEffect);
-  musicFolder = new File(pathsong);
+  String pathsong = sketchPath (Pathway); //Where ur file song located at
+  String pathEffect = sketchPath (SoundEffect); //Where ur soundEffects at
+  musicFolder = new File ( pathsong ) ;
   int musicFileCount = musicFolder.list().length;
   File[] musicFiles = musicFolder.listFiles(); //String of Full Directies
   String[] songFilePathway = new String[musicFileCount];
   for ( int i = 0; i < musicFiles.length; i++ ) {
     songFilePathway[i] = ( musicFiles[i].toString() );
+    //
   }
   //Re-Execute songList Population, Simillar to DIVS type of Population >>
-  numberOfSongs = musicFileCount; //Placeholder Only, reexecute lines after fileCount Known
+  numberOfSongs = musicFileCount ; //Placeholder Only, reexecute lines after fileCount Known
   songList = new AudioPlayer[numberOfSongs]; //song is now similar to song1
   printArray(songList);
   songListMetaData = new AudioMetaData[numberOfSongs]; //same as above
@@ -102,11 +102,11 @@ void setup () {
   Images = "Yoasobi.jpg" ;
   String JKT48 = "JKT48ZEE.jpg" ;
   String Yoasobi = "Yoasobi2.jpg" ;
-  String ways = "Yoasobi3.jpg" ;
+  String YSB2 = "Yoasobi3.jpg" ;
   String YSBTrial = "Yoasobi4.jpg" ;
   /*
  } else if ( songList[currentSong].isPlaying()) {
-   image= "testing.jpg";
+   image= "JKT48ZEE.jpg";
    }
    */
   Imageing = Images ;
@@ -114,17 +114,16 @@ void setup () {
   BackgroundHeight = X1Height*0 ;
   BackgroundWidth = X1Width-1 ;
   BackgroundHeight = X1Height-1 ;
-
-  String JKT48Image = sketchPath ( Path + ways ) ;
-  String PathImage = sketchPath ( Path + Imageing) ;
+//
+  String JKT48Image = sketchPath ( Path + JKT48 ) ;
+  String PathImage = sketchPath ( Path + YSB2 ) ;
   String YoasobiImage = sketchPath ( Path + Yoasobi ) ;
   String YSBTrialImage = sketchPath ( Path + YSBTrial ) ;
   println ( "identify", PathImage ) ;
   JKT48Img =  loadImage ( JKT48Image ) ;
-  Image =   loadImage ( Imageing ) ;
-  YoasobiImg =  loadImage ( Yoasobi ) ;
-  YSBTrialImg =  loadImage ( YSBTrial ) ;
-
+  Image =   loadImage ( PathImage ) ;
+  YoasobiImg =  loadImage ( YoasobiImage ) ;
+  YSBTrialImg =  loadImage ( YSBTrialImage ) ;
   //
   BackgroundX1 = X1Width*1/4 ;
   BackgroundY1 = X1Height*0 ;
@@ -152,13 +151,7 @@ void setup () {
 }//End setup
 //
 void draw () {
-  /*
-  if (key=='P' || key=='p' ) {
-   //image (josh, BX, BY, BW, BH);
-   //josh = loadImage (path + image );
-   }
-   */
-  //Note: logical operators could be nested IFs
+  //Note: logical operators could be nested IFs FOR TRUE
   if ( songList[currentSong].isLooping() && songList[currentSong].loopCount()!=-1 ) println("there are", songList[currentSong].loopCount(), "loop left.");//
   if ( songList[currentSong].isLooping() && songList[currentSong].loopCount()==-1 ) println("looping lot.");
   if ( songList[currentSong].isPlaying() && songList[currentSong].isLooping() ) println("play -e^ipi");
@@ -171,12 +164,12 @@ void draw () {
   fill(255) ;
   //
   PPButton () ;
-  //
+  // TEXT ALIGN CODES AND TEXT
   fill(255) ;
   //rect(BackgroundX1, BackgroundY1, BackgroundWidthXT, BackgroundHeightXT ;);
-  textAlign (CENTER, CENTER) ;
+  textAlign (CENTER, UP) ;
   int size = 60 ;
-  fill(OceanBlue);
+  fill( OceanBlue );
   textFont (generalFont, size);
   text(songListMetaData[currentSong].title(), BackgroundWidthXT, BackgroundHeightXT); //ERROR FIx later
   //autoplay for ur MUSIC PLAYER
@@ -246,15 +239,18 @@ void keyPressed () {
     }
     println ( "herek4", songList[currentSong].isPlaying(), pauseBoolean, stopBoolean, changeState );
   }
+  
   //
+  //
+  
   if ( key=='S' | key=='s' ) {
     changeState=true;
     if ( stopBoolean == false ) {
       stopBoolean = true;
-      //playList[currentSong].pause(); //auto .rewind()
+      //playList[currentSong].pause(); //auto .rewind() ur song
     } else {
       stopBoolean = false;
-      //playList[currentSong].rewind(); //Not Necessary
+      //playList[currentSong].rewind(); //Not Necessary Needed
     }
   }
   /*
@@ -301,7 +297,7 @@ void keyPressed () {
       } else {
         if (currentSong==0) {
           currentSong = currentSong + 1; //currentSong--; currentSong-=1}
-        } else if (currentSong>(numberOfSongs-1))
+        } else if (currentSong>(numberOfSongs-1)) {
           currentSong = 0;
         songList[currentSong].play();
       }
@@ -320,9 +316,11 @@ void keyPressed () {
         currentSong = currentSong - 1; //currentSong--; currentSong-=1}
       }
     }
+    //
+    
     println(currentSong);
-    songList[currentSong].play();
-  } //End Previous
+    songList[currentSong].play () ;
+  } //End Previous Pressed
   //
   if (key=='Y' || key=='y') {
     if ( songList[currentSong].isPlaying()==true ) {
@@ -331,23 +329,22 @@ void keyPressed () {
       songList[currentSong].play();
     }
   }
+ }
 } //End keyPressed
 //
 void mousePressed () {
   if ( mouseX > (ABX-AYWidth/2) && mouseX < (ABX-AYWidth/2) + AYWidth && mouseY > (GCY-AYHeight/2) && mouseY < (GCY-AYHeight/2) + AYHeight) {
     PBoolean = true;
     if ( PBoolean = true) {
-      if ( songList[currentSong].isPlaying() ) {
-        songList[currentSong].pause();
-        songList[currentSong].rewind();
-        if (currentSong==3) {
-          currentSong=numberOfSongs-1;
-        } else {
-          if (currentSong>(numberOfSongs-1)) {
-            currentSong = currentSong - 1; //currentSong--; currentSong-=1}
-          } else if (currentSong<(numberOfSongs-1))
-            currentSong = 3;
-          songList[currentSong].play();
+       if ( songList[currentSong].isPlaying() ) {
+      songList[currentSong].pause();
+      songList[currentSong].rewind();
+      pauseBoolean=false;
+      stopBoolean=false;
+      if (currentSong==0) {
+        currentSong=numberOfSongs-1;
+      } else {
+        currentSong = currentSong - 1; //currentSong--; currentSong-==1} //Value Of the Song
         }
       }
       println(currentSong);
@@ -360,28 +357,28 @@ void mousePressed () {
   if ( mouseX > ( BBX-GFWidth/2 ) && mouseX < ( BBX-GFWidth/2 ) + GFWidth && mouseY > ( FCY-GFHeight/2 ) && mouseY < ( FCY-GFHeight/2 ) + GFHeight ) {
     FBoolean = true;
     if (FBoolean = true) {
+        if ( songList[currentSong].isPlaying() ) {
       songList[currentSong].pause();
-      songList[currentSong].skip(songListMetaData[currentSong].length()-songList[currentSong].position());
-      if (currentSong==0) {
-        currentSong=numberOfSongs - 1;
+      songList[currentSong].rewind();
+      pauseBoolean=false;
+      stopBoolean=false;
+      if (currentSong==3) {
+        currentSong=0;
       } else {
-        if (currentSong<(numberOfSongs-1)) {
-          currentSong = currentSong + 1; //currentSong--; currentSong-=1}
-        } else if (currentSong>(numberOfSongs-1))
-          currentSong = 0;
-        songList[currentSong].play();
+        currentSong = currentSong + 1; //currentSong--; currentSong-=1 }
       }
       println(currentSong);
       songList[currentSong].play();
     }
+   }
   }
   //
   //
   //
-  if  ( mouseX > (ABX-AYHeight/2 ) && mouseX < (ABX-AYHeight/2 ) +  BackgroundWidthXW && mouseY > ( GCY- AYHeight/2) +  BackgroundHeightXW ) {
+  if  ( mouseX > (ABX-AYHeight/2 ) && mouseX < (ABX-AYHeight/2 ) +  BackgroundWidthXW && mouseY > ( GCY- AYHeight/2) && mouseY < ( GCY- AYHeight/2) + BackgroundHeightXW ) {
     pause=true;
     if (pause=true) {
-      fill ( OceanBlue );
+      fill ( White );
       noStroke ();
       ellipse ( BackgroundX3, BackgroundY3, BackgroundWidthXW, BackgroundHeightXW  );
       changeState=true;
@@ -396,8 +393,8 @@ void mousePressed () {
         noStroke ();
         ellipse (BackgroundX3, BackgroundY3, BackgroundWidthXW, BackgroundHeightXW  );
       }
-      if (  stopBoolean==true ) {
-        stopBoolean=false;
+      if (  stopBoolean == true ) {
+        stopBoolean = false ;
       }
       println ( "The One", songList[currentSong].isPlaying(), pauseBoolean, stopBoolean, changeState );
     }

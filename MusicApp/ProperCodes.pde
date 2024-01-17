@@ -19,5 +19,4 @@ void propercode () {
   println("Track", songListMetaData[currentSong].track() );
   println("Genre", songListMetaData[currentSong].genre() );
   println("Encoded", songListMetaData[currentSong].encoded() );
-  
 }

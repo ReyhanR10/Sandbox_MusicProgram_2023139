@@ -2,10 +2,11 @@ color Purple = #9829E3 ;
 PImage PauseButton, FForward, Previous ;
 //
 void PPButton () {
-  Scam () ;
+  bruh () ;
   //
   //
-  if ( mouseX > (ABX-AYHeight/2 ) && mouseX < (ABX-AYHeight/2 ) +  BackgroundWidthXW && mouseY > ( GCY- AYHeight/2) +  BackgroundHeightXW ) {
+  //
+  if ( mouseX > (ABX-AYHeight/2 ) && mouseX < (ABX-AYHeight/2 ) +  BackgroundWidthXW && mouseY > ( GCY- AYHeight/2) && mouseY < + ( GCY- AYHeight/2) + BackgroundHeightXW ) {
     //INK >> TEXT / A HoverOver #Work also for Button Codes
     fill ( OceanBlue ) ;
     noStroke () ;
@@ -18,7 +19,7 @@ void PPButton () {
   //
   //
   if ( mouseX > ( BBX-GFWidth/2 ) && mouseX < ( BBX-GFWidth/2 ) + GFWidth && mouseY > ( FCY-GFHeight/2 ) && mouseY < ( FCY-GFHeight/2 ) + GFHeight ) {
-    fill ( OceanBlue ); //INK
+    fill ( Purple ) ; //INK
     noStroke () ;
     ellipse ( BBX, BackgroundY3, BackgroundWidthXW, BackgroundHeightXW ) ;
   } else {
@@ -29,9 +30,9 @@ void PPButton () {
   }
   //
   //
-  FForward = loadImage  ( "../ButtonFunction/FastForward.jpeg" ) ;
-  previous = loadImage ( "../ButtonFunction/PreviousB.png" ) ;
-  pauseButton = loadImage ( "../ButtonFunction/PauseButton.png" ) ;
+  FForward = loadImage  ( "../ButtonFunctions/FastForward.jpeg" ) ;
+  Previous = loadImage ( "../ButtonFunctions/PreviousB2.png" ) ;
+  PauseButton = loadImage ( "../ButtonFunctions/PauseButton.png" ) ;
   image ( FForward, BBX-( GFWidth/2 ), FCY-( GFHeight/2), GFWidth, GFHeight ) ;
   image ( Previous, ABX-( AYWidth/2 ), GCY-( AYHeight/2 ), AYWidth, AYHeight ) ;
   image ( PauseButton, BackgroundX3-( BackgroundWidthXW/2 ), BackgroundY3-( BackgroundHeightXW/2 ), BackgroundWidth, BackgroundHeight ) ;
