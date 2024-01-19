@@ -33,7 +33,8 @@ float ABX, BBX ;
 float AYWidth, AYHeight ;
 float GFWidth, GFHeight ;
 float FCY, GCY ;
-Boolean changeState=false, stopBoolean=false, pauseBoolean=false, startBoolean=false, pause=false, FBoolean=false, PBoolean=false;
+float ABoomBackG, BBoomBackG, BBWidth, BBHeight ;
+Boolean changeState=false, stopBoolean=false, pauseBoolean=false, startBoolean=false, pause=false, FBoolean=false, PBoolean=false, isMuted = false;
 //
 void setup () {
   //size() or fullScreen() choose between both > for ur display Option.
@@ -144,6 +145,10 @@ void setup () {
   FCY = BackgroundY3 ;
   GCY = BackgroundY3  ;
   //
+  ABoomBackG = X1Width*15/16 ;
+  BBoomBackG = X1Height*0 ;
+  BBWidth = X1Width*2/18 ;
+  BBHeight = X1Height*2/18 ; 
   //repeat:  println("?", songMetaData1.?());
   //println("File Name", songListMetaData[0].fileName() ); //Data correct verify
   //
@@ -206,7 +211,7 @@ void draw () {
         }
       }
     }
-  }
+}
   //
   //
   /*
@@ -375,10 +380,10 @@ void mousePressed () {
   //
   //
   //
-  if  ( mouseX > (ABX-AYHeight/2 ) && mouseX < (ABX-AYHeight/2 ) +  BackgroundWidthXW && mouseY > ( GCY- AYHeight/2) && mouseY < ( GCY- AYHeight/2) + BackgroundHeightXW ) {
+  if  ( mouseX > (BackgroundX3-BackgroundWidthXW/2 ) && mouseX < (BackgroundX3-BackgroundWidthXW/2 ) + BackgroundWidthXW && mouseY > ( BackgroundY3-BackgroundHeightXW/2) && mouseY < ( BackgroundY3- BackgroundHeightXW/2) + BackgroundHeightXW ) {
     pause=true;
     if (pause=true) {
-      fill ( White );
+      fill (OceanBlue );
       noStroke ();
       ellipse ( BackgroundX3, BackgroundY3, BackgroundWidthXW, BackgroundHeightXW  );
       changeState=true;
@@ -396,9 +401,11 @@ void mousePressed () {
       if (  stopBoolean == true ) {
         stopBoolean = false ;
       }
+         
       println ( "The One", songList[currentSong].isPlaying(), pauseBoolean, stopBoolean, changeState );
     }
-  }
+  } // Not Gonna lie === Tired == True
+  if ( mouseX > ABoomBackG && mouseX< ABoomBackG + BBWidth && mouseY > BBoomBackG && mouseY < BBoomBackG + BBHeight ) exit ( ) ;
 } //End MOUSEPRESSED
 //
 //End YOUR MAIN PROGRAMMMMM!>>>>>>

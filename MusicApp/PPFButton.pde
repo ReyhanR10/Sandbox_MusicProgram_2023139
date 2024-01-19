@@ -30,10 +30,11 @@ void PPButton () {
   }
   //
   //
-  FForward = loadImage  ( "../ButtonFunctions/FastForward.jpeg" ) ;
-  Previous = loadImage ( "../ButtonFunctions/PreviousB2.png" ) ;
+  //
+  FForward = loadImage  ( "../ButtonFunctions/CepetanANJG.png" ) ;
+  Previous = loadImage ( "../ButtonFunctions/PreviousBT.png" ) ;
   PauseButton = loadImage ( "../ButtonFunctions/PauseButton.png" ) ;
   image ( FForward, BBX-( GFWidth/2 ), FCY-( GFHeight/2), GFWidth, GFHeight ) ;
   image ( Previous, ABX-( AYWidth/2 ), GCY-( AYHeight/2 ), AYWidth, AYHeight ) ;
-  image ( PauseButton, BackgroundX3-( BackgroundWidthXW/2 ), BackgroundY3-( BackgroundHeightXW/2 ), BackgroundWidth, BackgroundHeight ) ;
+  image ( PauseButton, BackgroundX3-( BackgroundWidthXW/2 ), BackgroundY3-( BackgroundHeightXW/2 ), BackgroundWidthXW, BackgroundHeightXW ) ;
 } //END PPFBUTTON
