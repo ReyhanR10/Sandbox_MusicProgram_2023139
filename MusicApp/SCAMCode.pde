@@ -7,7 +7,7 @@ void bruh () {
   imageHeightY1 = X1Height*1/2 ;
   
   //TINT ( Value??> )
-  tint ( 100 ) ;
+  tint ( 110 ) ;
   // If Statement
   if (songList[1].isPlaying () ) {
     image ( Image,  BackgroundX2,  BackgroundY2,  BackgroundWidth,  BackgroundHeight ) ;

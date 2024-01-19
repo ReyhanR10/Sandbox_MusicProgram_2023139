@@ -174,7 +174,7 @@ void draw () {
   //rect(BackgroundX1, BackgroundY1, BackgroundWidthXT, BackgroundHeightXT ;);
   textAlign (CENTER, UP) ;
   int size = 60 ;
-  fill( OceanBlue );
+  fill( White );
   textFont (generalFont, size);
   text(songListMetaData[currentSong].title(), BackgroundWidthXT, BackgroundHeightXT); //ERROR FIx later
   //autoplay for ur MUSIC PLAYER
